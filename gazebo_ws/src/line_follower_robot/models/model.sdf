@@ -1,0 +1,246 @@
+<sdf version='1.7'>
+  <model name='line_follower'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0 0 1 0 -0 0</pose>
+        <mass>0.100515</mass>
+        <inertia>
+          <ixx>4.93963e-05</ixx>
+          <ixy>-1.03998e-19</ixy>
+          <ixz>1.04526e-21</ixz>
+          <iyy>0.000176818</iyy>
+          <iyz>1.80988e-14</iyz>
+          <izz>0.000222571</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='castorjoint' type='revolute'>
+      <pose relative_to='base_link'>0.072581 0 -0.0025 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>castor</child>
+      <axis>
+        <xyz>0 -0.009435 0.99996</xyz>
+        <limit>
+          <effort>10</effort>
+          <velocity>1</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='castor'>
+      <pose relative_to='castorjoint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.001818 -8e-06 -0.005002 0 -0 0</pose>
+        <mass>0.0397325</mass>
+        <inertia>
+          <ixx>3.91274e-06</ixx>
+          <ixy>-1.70723e-09</ixy>
+          <ixz>2.48052e-07</ixz>
+          <iyy>4.05639e-06</iyy>
+          <iyz>2.45567e-09</iyz>
+          <izz>7.03701e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='castor_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/castor.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='castor_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/castor.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='castorwheel' type='revolute'>
+      <pose relative_to='castor'>0.015014 0.000142 -0.02296 1.5708 -0 0</pose>
+      <parent>castor</parent>
+      <child>castor_wheel</child>
+      <axis>
+        <xyz>-0.009435 0 -0.99996</xyz>
+        <limit>
+          <effort>10</effort>
+          <velocity>10</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.1</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='castor_wheel'>
+      <pose relative_to='castorwheel'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 -0 0 0 -0 0</pose>
+        <mass>0.0082874</mass>
+        <inertia>
+          <ixx>6.393e-07</ixx>
+          <ixy>-1.65703e-22</ixy>
+          <ixz>3.50835e-09</ixz>
+          <iyy>6.39267e-07</iyy>
+          <iyz>5.24489e-23</iyz>
+          <izz>1.01109e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='castor_wheel_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/castor_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='castor_wheel_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/castor_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='leftwheel' type='revolute'>
+      <pose relative_to='base_link'>-0.033259 0.07575 -0.01375 -1.5708 0 0</pose>
+      <parent>base_link</parent>
+      <child>left_wheel</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>10</effort>
+          <velocity>10</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.1</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_wheel'>
+      <pose relative_to='leftwheel'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0.007373 0 -0 0</pose>
+        <mass>0.0214042</mass>
+        <inertia>
+          <ixx>8.62832e-06</ixx>
+          <ixy>3.38017e-12</ixy>
+          <ixz>-3.14321e-13</ixz>
+          <iyy>8.62688e-06</iyy>
+          <iyz>-9.89546e-12</iyz>
+          <izz>1.45152e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_wheel_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/left_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_wheel_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/left_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='rightwheel' type='revolute'>
+      <pose relative_to='base_link'>-0.033259 -0.07575 -0.01375 1.5708 -0 0</pose>
+      <parent>base_link</parent>
+      <child>right_wheel</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <effort>10</effort>
+          <velocity>10</velocity>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.1</damping>
+          <friction>0.1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_wheel'>
+      <pose relative_to='rightwheel'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 -0 -0.007373 0 -0 0</pose>
+        <mass>0.0214042</mass>
+        <inertia>
+          <ixx>8.62832e-06</ixx>
+          <ixy>-3.38017e-12</ixy>
+          <ixz>3.14321e-13</ixz>
+          <iyy>8.62688e-06</iyy>
+          <iyz>-9.89546e-12</iyz>
+          <izz>1.45152e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_wheel_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/right_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_wheel_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://line_follower_robot/meshes/right_wheel.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
