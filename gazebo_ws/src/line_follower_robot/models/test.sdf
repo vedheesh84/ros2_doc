@@ -1,5 +1,15 @@
 <sdf version='1.7'>
   <model name='line_follower'>
+    <link name='world'>
+      <pose>0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name='world_joint' type='fixed'>
+      <parent>world</parent>
+      <child>base_link</child>
+      <pose>0 0 0.1 0 0 0</pose>
+    </joint>
+
     <!-- Base Link -->
     <link name='base_link'>
       <inertial>

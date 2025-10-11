@@ -11,11 +11,11 @@ def generate_launch_description():
     # Package and Xacro paths
     pkg_name = 'line_follower_robot'
     pkg_share_dir = get_package_share_directory(pkg_name)
-    xacro_file = os.path.join(pkg_share_dir, 'urdf', 'lineFollowerRobot.urdf.xacro')
+    xacro_file = os.path.join(pkg_share_dir, 'urdf', 'line_follower_robot.urdf.xacro')
 
     # Convert Xacro to URDF string
     robot_description_content = ParameterValue(
-    Command(['xacro ', xacro_file]), 
+    Command(['xacro', xacro_file]), 
     value_type=str
     )
     robot_description = {'robot_description': robot_description_content}

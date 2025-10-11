@@ -11,9 +11,9 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Paths
-    package_name = 'line_follower_model'
+    package_name = 'line_follower_robot'
     pkg_share_dir = get_package_share_directory(package_name)
-    urdf_file_name = 'lineRobotFollower.urdf'
+    urdf_file_name = 'line_follower_robot.urdf'
     urdf_path = os.path.join(pkg_share_dir, 'urdf', urdf_file_name)
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
@@ -39,7 +39,7 @@ def generate_launch_description():
     spawn_mobilebot = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description', '-entity', 'line_follower'],
+        arguments=['-topic', 'robot_description', '-entity', 'line_follower_robot'],
         output='screen'
     )
 
