@@ -11,8 +11,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     
     pkg_line_follower = get_package_share_directory('line_follower_robot')
-    model_path = os.path.join(pkg_line_follower, 'models', 'test.sdf')
-
+    model_path = os.path.join(pkg_line_follower, 'models', 'line_follower_robot.sdf')
 
 
     # Launch configuration variables

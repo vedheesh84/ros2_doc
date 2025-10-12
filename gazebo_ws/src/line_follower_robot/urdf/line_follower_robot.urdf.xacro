@@ -11,6 +11,17 @@
   <xacro:property name="castor_wheel_mesh" value="package://line_follower_robot/meshes/castor_wheel.STL"/>
 
   <!-- ========================= -->
+  <!-- world link -->
+  <!-- ========================= -->
+  <link name="world"/>
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+  </joint>
+
+
+  <!-- ========================= -->
   <!-- Base link -->
   <!-- ========================= -->
   <link name="base_link">
@@ -115,6 +126,17 @@
         <color rgba="0.79216 0.81961 0.93333 1"/>
       </material>
     </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+    </inertial>
+    <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${castor_wheel_mesh}"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="castor_joint" type="continuous">
@@ -130,6 +152,17 @@
         <mesh filename="${castor_wheel_mesh}"/>
       </geometry>
     </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+    </inertial>
+    <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${castor_wheel_mesh}"/>
+      </geometry>
+    </collision>    
   </link>
 
   <joint name="castor_wheel_joint" type="continuous">

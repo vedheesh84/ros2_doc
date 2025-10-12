@@ -8,23 +8,24 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.descriptions import ParameterValue
 
 def generate_launch_description():
     # Paths
-    package_name = 'line_follower_robot'
+    package_name = 'simple_linefollower_robot'
     pkg_share_dir = get_package_share_directory(package_name)
-    urdf_file_name = 'mobilebot.urdf.xacro'
+    urdf_file_name = 'line_follower_simple_robot.urdf.xacro'
     urdf_path = os.path.join(pkg_share_dir, 'urdf', urdf_file_name)
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
     turtlebot3_pkg_dir = get_package_share_directory('turtlebot3_gazebo')
-    world_file = os.path.join(turtlebot3_pkg_dir, 'worlds', 'turtlebot3_house.world')
+    world_file = os.path.join(turtlebot3_pkg_dir, 'worlds', 'empty_world.world')
 
     # Use simulation time
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     # Mobilebot robot description
-    robot_description_content = Command(['xacro ', urdf_path])
+    robot_description_content = ParameterValue(Command(['xacro ', urdf_path]),value_type=str)
     robot_description_param = {'robot_description': robot_description_content}
 
     # Robot State Publisher
@@ -38,7 +39,7 @@ def generate_launch_description():
     spawn_mobilebot = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description', '-entity', 'mobilebot'],
+        arguments=['-topic', 'robot_description', '-entity', 'simple_linefollower_robot'],
         output='screen'
     )
 

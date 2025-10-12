@@ -6,6 +6,9 @@ from launch import LaunchDescription
 from launch.substitutions import Command
 from launch_ros.actions import Node
 from launch_ros.descriptions import ParameterValue
+from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument
+
 
 def generate_launch_description():
     # Package and Xacro paths
@@ -15,10 +18,26 @@ def generate_launch_description():
 
     # Convert Xacro to URDF string
     robot_description_content = ParameterValue(
-    Command(['xacro', xacro_file]), 
-    value_type=str
+        Command(['xacro ', xacro_file]), 
+        value_type=str
     )
     robot_description = {'robot_description': robot_description_content}
+
+    # Launch argument for enabling GUI
+    gui_arg = DeclareLaunchArgument(
+        'gui',
+        default_value='true',
+        description='Flag to enable joint_state_publisher GUI'
+    )
+
+    # Joint State Publisher GUI node
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        output='screen',
+        parameters=[{'use_gui': LaunchConfiguration('gui')}]
+    )
 
     # Robot State Publisher node
     robot_state_publisher_node = Node(
@@ -28,13 +47,6 @@ def generate_launch_description():
         parameters=[robot_description]
     )
     
-	
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher',
-        output='screen'
-    )
 
     # RViz node
     rviz_node = Node(
@@ -46,6 +58,7 @@ def generate_launch_description():
 
     # Launch description
     ld = LaunchDescription()
+    ld.add_action(gui_arg)
     ld.add_action(joint_state_publisher_node)
     ld.add_action(robot_state_publisher_node)
     ld.add_action(rviz_node)
