@@ -6,7 +6,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 	urdf_file = os.path.join(
-		get_package_share_directory('rviz_tutorial'), 'urdf', 'r2d2.urdf'
+		get_package_share_directory('rviz_tutorial'), 'urdf', 'full_demo.urdf'
 	)
 	with open(urdf_file, 'r') as infp:
 		robot_description = infp.read()

@@ -12,8 +12,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     robot_name = 'line_follower_robot'
-    world_name = 'empty_world'
-
+    
     # Paths
     package_name = 'line_follower_robot'
     pkg_share_dir = get_package_share_directory(package_name)
@@ -21,7 +20,7 @@ def generate_launch_description():
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
     turtlebot3_pkg_dir = get_package_share_directory('turtlebot3_gazebo')
-    world_file = os.path.join(turtlebot3_pkg_dir, 'worlds', f'{world_name}.world')
+    world_file = os.path.join(turtlebot3_pkg_dir, 'worlds', 'empty_world.world')
 
     # Use simulation time
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')

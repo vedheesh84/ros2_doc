@@ -8,12 +8,13 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     # Paths
     package_name = 'rviz_tutorial'
     pkg_share_dir = get_package_share_directory(package_name)
-    urdf_file_name = 'simple_robot_car.xacro'
+    urdf_file_name = 'robot.urdf.xacro'
     urdf_path = os.path.join(pkg_share_dir, 'urdf', urdf_file_name)
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
@@ -24,8 +25,10 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     # Mobilebot robot description
-    robot_description_content = Command(['xacro ', urdf_path])
+    robot_description_content = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
     robot_description_param = {'robot_description': robot_description_content}
+
+    
 
     # Robot State Publisher
     robot_state_publisher_node = Node(
@@ -34,6 +37,12 @@ def generate_launch_description():
         parameters=[robot_description_param, {'use_sim_time': use_sim_time}]
     )
 
+    rviz_node = Node(
+		package='rviz2',
+		executable='rviz2',
+		name='rviz2',
+		output='screen'
+	)
     
     # Spawn Mobilebot in Gazebo
     spawn_mobilebot = Node(
@@ -41,7 +50,7 @@ def generate_launch_description():
         executable='spawn_entity.py',
         arguments=[
             '-topic', 'robot_description',
-            '-entity', 'mobilebot'],
+            '-entity', 'simple_robot_car'],
         output='screen'
     )
 
@@ -56,12 +65,26 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(gazebo_pkg_dir, 'launch', 'gzclient.launch.py'))
     )
 
+    slam_launch = IncludeLaunchDescription(
+    PythonLaunchDescriptionSource(
+        os.path.join(
+            get_package_share_directory('rviz_tutorial'),
+            'launch',
+            'slam.launch.py'
+        )
+    )
+)
+
+
     # Create and return launch description
     ld = LaunchDescription()
 
+    
+    ld.add_action(robot_state_publisher_node)
+    ld.add_action(rviz_node)
     ld.add_action(gzserver)
     ld.add_action(gzclient)
-    ld.add_action(robot_state_publisher_node)
     ld.add_action(spawn_mobilebot)
+    ld.add_action(slam_launch)
 
     return ld
