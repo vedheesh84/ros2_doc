@@ -29,7 +29,7 @@ def generate_launch_description():
     robot_description_param = {'robot_description': robot_description_content}
 
     # RViz config
-    rviz_config_file = os.path.join(pkg_share_dir, 'config', 'simple_robot_car.rviz')
+    rviz_config_file = os.path.join(pkg_share_dir, 'config', 'map.rviz')
     
 
     # Robot State Publisher
