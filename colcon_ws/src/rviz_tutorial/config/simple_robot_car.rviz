@@ -1,0 +1,110 @@
+Visualization Manager:
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: map              # Use map for SLAM stability
+    Frame Rate: 30
+
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Plane Cell Count: 20
+      Color: 160; 160; 160
+      Line Style:
+        Value: Lines
+        Line Width: 0.03
+      Alpha: 0.5
+
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Frame Timeout: 15
+      Show Names: false
+      Show Arrows: true
+      Show Axes: true
+      Marker Scale: 0.8
+      Frames:
+        All Enabled: false
+        map:
+          Value: true
+        odom:
+          Value: true
+        base_link:
+          Value: true
+        laser_frame:
+          Value: true
+      Tree:
+        map:
+          odom:
+            base_link:
+              laser_frame: {}
+
+    - Class: rviz_default_plugins/Map
+      Name: Map
+      Enabled: true
+      Alpha: 0.8
+      Color Scheme: costmap
+      Draw Behind: true
+      Topic:
+        Value: /map
+      Update Topic:
+        Value: /map_updates
+
+    - Class: rviz_default_plugins/LaserScan
+      Name: LaserScan
+      Enabled: true
+      Topic:
+        Value: /scan
+      Color Transformer: FlatColor
+      Color: 255; 255; 255
+      Size (m): 0.02
+      Style: Points
+      Alpha: 1.0
+
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Parameter
+      Description Parameter: robot_description
+      Visual Enabled: true
+      Collision Enabled: false
+      Links:
+        All Links Enabled: false
+        base_link:
+          Value: true
+        laser_frame:
+          Value: true
+
+    - Class: rviz_default_plugins/Odometry
+      Name: Odometry
+      Enabled: true
+      Topic:
+        Value: /odom
+      Keep: 50
+      Shape: Arrow
+      Color: 0; 255; 0
+      Alpha: 1.0
+      Covariance:
+        Value: true
+
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Value: /goal_pose
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic:
+        Value: /initialpose
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/PublishPoint
+      Topic:
+        Value: /clicked_point
+
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: TopDown
+      Target Frame: map
+      Scale: 150

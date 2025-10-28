@@ -1,13 +1,15 @@
 digraph G {
-"base_link" -> "right_wheel"[label=" Broadcaster: default_authority\nAverage rate: 100.2\nBuffer length: 5.01\nMost recent transform: 976.875\nOldest transform: 971.865\n"];
+"map" -> "odom"[label=" Broadcaster: default_authority\nAverage rate: 10.2\nBuffer length: 5.0\nMost recent transform: 71.702\nOldest transform: 66.702\n"];
 "base_link" -> "base_footprint"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"odom" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 100.2\nBuffer length: 4.99\nMost recent transform: 71.291\nOldest transform: 66.301\n"];
 "base_link" -> "center_spherical_wheel"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "base_link" -> "camera_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "camera_link" -> "camera_link_optical"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "base_link" -> "laser_frame"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
-"base_link" -> "left_wheel"[label=" Broadcaster: default_authority\nAverage rate: 100.2\nBuffer length: 5.01\nMost recent transform: 976.875\nOldest transform: 971.865\n"];
+"base_link" -> "right_wheel"[label=" Broadcaster: default_authority\nAverage rate: 100.2\nBuffer length: 5.0\nMost recent transform: 71.301\nOldest transform: 66.301\n"];
+"base_link" -> "left_wheel"[label=" Broadcaster: default_authority\nAverage rate: 100.2\nBuffer length: 5.0\nMost recent transform: 71.301\nOldest transform: 66.301\n"];
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 1761485089.8898933"[ shape=plaintext ] ;
-}->"base_link";
+"Recorded at time: 1761486673.2673109"[ shape=plaintext ] ;
+}->"map";
 }

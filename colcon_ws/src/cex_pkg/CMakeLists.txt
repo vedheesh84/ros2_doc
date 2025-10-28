@@ -40,6 +40,16 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(
+  DIRECTORY action 
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  DIRECTORY msg 
+  DESTINATION share/${PROJECT_NAME}
+)
+
 #install launch file
 install(
   DIRECTORY launch

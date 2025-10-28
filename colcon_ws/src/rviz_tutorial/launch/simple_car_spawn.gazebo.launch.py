@@ -18,8 +18,8 @@ def generate_launch_description():
     urdf_path = os.path.join(pkg_share_dir, 'urdf', urdf_file_name)
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
-    turtlebot3_pkg_dir = get_package_share_directory('turtlebot3_gazebo')
-    world_file = os.path.join(turtlebot3_pkg_dir, 'worlds', 'empty_world.world')
+
+    world_file = os.path.join(pkg_share_dir, 'worlds', 'simple_world.world')
 
     # Use simulation time
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
@@ -28,6 +28,8 @@ def generate_launch_description():
     robot_description_content = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
     robot_description_param = {'robot_description': robot_description_content}
 
+    # RViz config
+    rviz_config_file = os.path.join(pkg_share_dir, 'config', 'simple_robot_car.rviz')
     
 
     # Robot State Publisher
@@ -37,12 +39,15 @@ def generate_launch_description():
         parameters=[robot_description_param, {'use_sim_time': use_sim_time}]
     )
 
+
+
     rviz_node = Node(
-		package='rviz2',
-		executable='rviz2',
-		name='rviz2',
-		output='screen'
-	)
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', rviz_config_file]
+    )
     
     # Spawn Mobilebot in Gazebo
     spawn_mobilebot = Node(

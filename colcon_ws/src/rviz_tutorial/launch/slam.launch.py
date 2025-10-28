@@ -22,7 +22,7 @@ def generate_launch_description():
     params_file = os.path.join(
         get_package_share_directory('rviz_tutorial'),
         'config',
-        'mapper_params_online_sync.yaml'
+        'mapper_params_online_async.yaml'
     )
 
     slam_include = IncludeLaunchDescription(
