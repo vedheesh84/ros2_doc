@@ -19,7 +19,7 @@ def generate_launch_description():
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
 
-    world_file = os.path.join(pkg_share_dir, 'worlds', 'simple_world.world')
+    world_file = os.path.join(pkg_share_dir, 'worlds', 'gazebo_world3')
 
     # Use simulation time
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
