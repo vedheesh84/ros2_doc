@@ -159,8 +159,8 @@
       </ros>
 
       <!-- wheel iformation-->
-      <left_joint>body_left_wheel</left_joint>
-      <right_joint>body_right_wheel</right_joint>
+      <left_joint>body_right_wheel</left_joint>
+      <right_joint>body_left_wheel</right_joint>
       <wheel_separation>${wheel_separation}</wheel_separation>
       <wheel_diameter>0.08</wheel_diameter>
 

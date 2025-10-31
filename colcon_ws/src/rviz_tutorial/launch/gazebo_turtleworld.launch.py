@@ -25,7 +25,6 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-entity', 'simple_robot_car'],
-        output='screen'
     )
 
     # Launch Gazebo server with the house world

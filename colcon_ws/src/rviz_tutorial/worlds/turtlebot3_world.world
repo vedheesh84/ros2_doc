@@ -65,7 +65,7 @@
     <atmosphere type='adiabatic'/>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-4.21467 0.632903 4.12812 0.7 0.7 -0</pose>
+        <pose>-6.26136 0.348547 6.74704 0 0.852 0.01999</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -148,7 +148,7 @@
           <max_contacts>10</max_contacts>
         </collision>
         <collision name='base_link_fixed_joint_lump__camera_link_collision_2'>
-          <pose>-0.08 0 0.15 1.5708 -0 3.14159</pose>
+          <pose>0.08 0 0.15 1.5708 -0 0</pose>
           <geometry>
             <box>
               <size>0.03 0.03 0.03</size>
@@ -169,7 +169,7 @@
           <max_contacts>10</max_contacts>
         </collision>
         <collision name='base_link_fixed_joint_lump__laser_frame_collision_3'>
-          <pose>0.08 0 0.15 0 -0 0</pose>
+          <pose>0 0 0.15 0 -0 0</pose>
           <geometry>
             <cylinder>
               <length>0.03</length>
@@ -213,7 +213,7 @@
           </material>
         </visual>
         <visual name='base_link_fixed_joint_lump__camera_link_visual_2'>
-          <pose>-0.08 0 0.15 0 -0 3.14159</pose>
+          <pose>0.08 0 0.15 0 -0 0</pose>
           <geometry>
             <box>
               <size>0.03 0.03 0.03</size>
@@ -227,7 +227,7 @@
           </material>
         </visual>
         <visual name='base_link_fixed_joint_lump__laser_frame_visual_3'>
-          <pose>0.08 0 0.15 0 -0 0</pose>
+          <pose>0 0 0.15 0 -0 0</pose>
           <geometry>
             <cylinder>
               <length>0.03</length>
@@ -259,7 +259,7 @@
           <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
             <frame_name>camera_link_optical</frame_name>
           </plugin>
-          <pose>-0.08 0 0.15 0 -0 3.14159</pose>
+          <pose>0.08 0 0.15 0 -0 0</pose>
         </sensor>
         <sensor name='laser' type='ray'>
           <visualize>1</visualize>
@@ -279,7 +279,7 @@
               </vertical>
             </scan>
             <range>
-              <min>0.3</min>
+              <min>0.2</min>
               <max>12</max>
             </range>
           </ray>
@@ -290,7 +290,7 @@
             <output_type>sensor_msgs/LaserScan</output_type>
             <frame_name>laser_frame</frame_name>
           </plugin>
-          <pose>0.08 0 0.15 0 -0 0</pose>
+          <pose>0 0 0.15 0 -0 0</pose>
         </sensor>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -432,8 +432,8 @@
           <namespace>/</namespace>
           <remapping>cmd_vel:=/cmd_vel</remapping>
         </ros>
-        <left_joint>body_left_wheel</left_joint>
-        <right_joint>body_right_wheel</right_joint>
+        <left_joint>body_right_wheel</left_joint>
+        <right_joint>body_left_wheel</right_joint>
         <wheel_separation>0.22</wheel_separation>
         <wheel_diameter>0.08</wheel_diameter>
         <max_wheel_torque>5.0</max_wheel_torque>
@@ -1008,13 +1008,13 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>0.035501 0.454189 0 0 -0 0</pose>
+      <pose>-0.044124 0.543262 0 0 -0 0</pose>
     </model>
     <state world_name='simple_world'>
-      <sim_time>40 307000000</sim_time>
-      <real_time>81 743696751</real_time>
-      <wall_time>1761720464 466733440</wall_time>
-      <iterations>40307</iterations>
+      <sim_time>49 249000000</sim_time>
+      <real_time>98 978926640</real_time>
+      <wall_time>1761894775 593916822</wall_time>
+      <iterations>49249</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -1026,35 +1026,35 @@
         </link>
       </model>
       <model name='ros_symbol'>
-        <pose>0.035501 0.454189 0 0 -0 0</pose>
+        <pose>-0.044124 0.543262 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='symbol'>
-          <pose>0.035501 0.454189 0 0 -0 0</pose>
+          <pose>-0.044124 0.543262 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='simple_robot_car'>
-        <pose>-0.00268 -0.000125 -0.001249 0 -0.01252 -0.00032</pose>
+        <pose>-0.002973 -0.000143 -0.001247 0 -0.012501 -0.000386</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose>-0.00268 -0.000125 -0.001249 0 -0.01252 -0.00032</pose>
-          <velocity>0.000658 -7e-06 -0.001955 -3.1e-05 -0.019408 -1.4e-05</velocity>
-          <acceleration>-2.10302 -0.007037 -3.95338 -0.061122 -1.11944 -0.050842</acceleration>
-          <wrench>-6.41422 -0.021464 -12.0578 0 -0 0</wrench>
+          <pose>-0.002973 -0.000143 -0.001247 0 -0.012501 -0.000386</pose>
+          <velocity>-0.000675 5e-06 0.001955 3.2e-05 0.01941 3.6e-05</velocity>
+          <acceleration>2.10303 0.006898 3.95338 0.063704 1.11942 0.050744</acceleration>
+          <wrench>6.41423 0.02104 12.0578 0 -0 0</wrench>
         </link>
         <link name='left_wheel'>
-          <pose>0.096745 -0.110157 0.0425 5e-06 -0.017524 -0.000321</pose>
-          <velocity>-0.00049 4e-06 1.3e-05 -0.000139 -0.012691 -0.002693</velocity>
-          <acceleration>-0.966744 0.009983 0.026445 -0.246293 0.069366 0.875372</acceleration>
-          <wrench>-0.290023 0.002995 0.007933 0 -0 0</wrench>
+          <pose>0.096445 -0.110181 0.0425 5e-06 -0.018408 -0.000385</pose>
+          <velocity>0.000476 -6e-06 -1.3e-05 0.000109 0.012372 0.002715</velocity>
+          <acceleration>0.96674 -0.010049 -0.026445 0.24815 -0.069479 -0.875426</acceleration>
+          <wrench>0.290022 -0.003015 -0.007933 0 -0 0</wrench>
         </link>
         <link name='right_wheel'>
-          <pose>0.096815 0.109843 0.0425 -6e-06 -0.019685 -0.000319</pose>
-          <velocity>-0.000491 -5e-06 1.3e-05 0.000156 -0.012741 0.002795</velocity>
-          <acceleration>-0.963112 -0.011521 0.02714 0.280199 0.095549 -0.715951</acceleration>
-          <wrench>-0.288933 -0.003456 0.008142 0 -0 0</wrench>
+          <pose>0.09653 0.109818 0.0425 -6e-06 -0.020888 -0.000388</pose>
+          <velocity>0.000472 6e-06 -1.4e-05 -0.000124 0.012297 -0.002773</velocity>
+          <acceleration>0.963118 0.011449 -0.027138 -0.278516 -0.095374 0.715905</acceleration>
+          <wrench>0.288936 0.003435 -0.008141 0 -0 0</wrench>
         </link>
       </model>
       <light name='sun'>
