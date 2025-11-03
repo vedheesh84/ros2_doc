@@ -19,7 +19,7 @@ def generate_launch_description():
 	robot_description_content = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
 	robot_description_param = {'robot_description': robot_description_content}
 
-	rviz_config_file = os.path.join(pkg_share_dir, 'config', 'map.rviz')
+	rviz_config_file = os.path.join(pkg_share_dir, 'config', 'tb3_cartographer.rviz')
 
 	# Robot State Publisher
 	robot_state_publisher_node = Node(

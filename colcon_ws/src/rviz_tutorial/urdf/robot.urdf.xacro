@@ -5,6 +5,7 @@
     <xacro:include filename="$(find rviz_tutorial)/urdf/simple_robot_car.xacro"/>
     <xacro:include filename="$(find rviz_tutorial)/urdf/lidar.xacro"/>
     <xacro:include filename="$(find rviz_tutorial)/urdf/camera.xacro"/>
+    <xacro:include filename="$(find rviz_tutorial)/urdf/IMU_link.xacro"/>
     
 
     
