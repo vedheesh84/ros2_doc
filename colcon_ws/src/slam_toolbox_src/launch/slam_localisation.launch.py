@@ -54,7 +54,7 @@ def generate_launch_description():
 
     # Path to your params file (inside your own package)
     params_file = os.path.join(
-        get_package_share_directory('rviz_tutorial'),
+        get_package_share_directory('slam_toolbox_src'),
         'config',
         'localisation_params.yaml'
     )

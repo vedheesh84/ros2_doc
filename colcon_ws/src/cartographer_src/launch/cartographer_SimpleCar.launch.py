@@ -14,10 +14,12 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     turtlebot3_cartographer_prefix = get_package_share_directory('cartographer_src')
-    cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
-                                                  turtlebot3_cartographer_prefix, 'config'))
-    configuration_basename = LaunchConfiguration('configuration_basename',
-                                                 default='turtlebot3_lds_2d.lua')
+    # Default config directory and basename (plain strings) - these can still be
+    # overridden via launch arguments at runtime.
+    default_cartographer_config_dir = os.path.join(turtlebot3_cartographer_prefix, 'config')
+    default_configuration_basename = 'turtlebot3_lds_2d.lua'
+    cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=default_cartographer_config_dir)
+    configuration_basename = LaunchConfiguration('configuration_basename', default=default_configuration_basename)
 
     resolution = LaunchConfiguration('resolution', default='0.05')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')

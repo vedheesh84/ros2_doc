@@ -14,12 +14,13 @@ def generate_launch_description():
     # Paths
     package_name = 'rviz_tutorial'
     pkg_share_dir = get_package_share_directory(package_name)
+    world_pkg_share_dir = get_package_share_directory('gazebo_src')
     urdf_file_name = 'robot.urdf.xacro'
     urdf_path = os.path.join(pkg_share_dir, 'urdf', urdf_file_name)
 
     gazebo_pkg_dir = get_package_share_directory('gazebo_ros')
 
-    world_file = os.path.join(pkg_share_dir, 'worlds', 'cafe_world.world')
+    world_file = os.path.join(world_pkg_share_dir, 'worlds', 'cafe_world.world')
 
     # Use simulation time
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
@@ -73,9 +74,9 @@ def generate_launch_description():
     slam_launch = IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
         os.path.join(
-            get_package_share_directory('rviz_tutorial'),
+            get_package_share_directory('slam_toolbox_src'),
             'launch',
-            'slam.launch.py'
+            'slam_mapping.launch.py'
         )
     )
 )
