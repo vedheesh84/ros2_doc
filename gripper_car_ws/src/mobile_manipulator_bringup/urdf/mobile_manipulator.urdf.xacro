@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+  MOBILE MANIPULATOR URDF - Complete Integrated System
+  =====================================================
+
+  DESCRIPTION:
+    Complete mobile manipulator combining:
+    - 4-wheel differential drive mobile base
+    - 6-DOF robotic arm with gripper
+    - Sensors (Lidar, camera)
+
+  USAGE:
+    This is the main URDF for the complete robot system
+    It includes modular base and arm via xacro
+
+  MODES:
+    - Simulation: Uses Gazebo plugins for control
+    - Hardware: Uses ros2_control with hardware interfaces
+
+  AUTHOR: Mobile Manipulator Integration Team
+-->
+
+<robot name="mobile_manipulator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ================================================================ -->
+  <!-- ARGUMENTS -->
+  <!-- ================================================================ -->
+
+  <!-- Use simulation (Gazebo) or hardware interfaces -->
+  <xacro:arg name="use_sim" default="true"/>
+
+  <!-- Namespace prefix for multi-robot systems -->
+  <xacro:arg name="robot_namespace" default=""/>
+
+  <!-- Hardware interface type (mock/gazebo/real) -->
+  <xacro:arg name="hardware_interface" default="mock_components/GenericSystem"/>
+
+  <!-- ================================================================ -->
+  <!-- INCLUDES -->
+  <!-- ================================================================ -->
+
+  <!-- Include modular base description -->
+  <xacro:include filename="$(find mobile_manipulator_bringup)/urdf/mobile_base.urdf.xacro"/>
+
+  <!-- Include modular arm description -->
+  <xacro:include filename="$(find mobile_manipulator_bringup)/urdf/mobile_arm.urdf.xacro"/>
+
+  <!-- Include Gazebo plugins (if in simulation mode) -->
+  <xacro:if value="$(arg use_sim)">
+    <xacro:include filename="$(find mobile_manipulator_bringup)/urdf/gazebo_plugins.xacro"/>
+  </xacro:if>
+
+  <!-- Include ros2_control -->
+  <xacro:include filename="$(find mobile_manipulator_bringup)/urdf/mobile_manipulator.ros2_control.xacro"/>
+
+  <!-- ================================================================ -->
+  <!-- ROBOT STRUCTURE -->
+  <!-- ================================================================ -->
+
+  <!-- World link (for Gazebo and MoveIt virtual joint) -->
+  <link name="world"/>
+
+  <!-- Odom link (for odometry frame) -->
+  <link name="odom"/>
+
+  <!-- Fixed joint from world to odom (optional, for visualization) -->
+  <joint name="world_to_odom" type="fixed">
+    <parent link="world"/>
+    <child link="odom"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Fixed joint from odom to body_link (will be updated by odometry in real-time) -->
+  <!-- In simulation: Gazebo diff_drive plugin handles this -->
+  <!-- In hardware: unified_hardware_bridge publishes TF -->
+  <joint name="odom_to_base" type="fixed">
+    <parent link="odom"/>
+    <child link="body_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Instantiate mobile base -->
+  <xacro:mobile_base prefix=""/>
+
+  <!-- Instantiate robotic arm (mounted on arm_mount_link from base) -->
+  <xacro:mobile_arm prefix="" parent="arm_mount_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:mobile_arm>
+
+  <!-- ================================================================ -->
+  <!-- ROS2 CONTROL -->
+  <!-- ================================================================ -->
+
+  <!-- Instantiate ros2_control interface -->
+  <xacro:mobile_manipulator_ros2_control
+    hardware_interface="$(arg hardware_interface)"
+    use_sim="$(arg use_sim)"/>
+
+  <!-- ================================================================ -->
+  <!-- GAZEBO PLUGINS (Simulation Only) -->
+  <!-- ================================================================ -->
+
+  <xacro:if value="$(arg use_sim)">
+    <!-- Gazebo plugins for mobile base (diff drive, sensors, etc.) -->
+    <xacro:gazebo_plugins robot_namespace="$(arg robot_namespace)"/>
+  </xacro:if>
+
+</robot>

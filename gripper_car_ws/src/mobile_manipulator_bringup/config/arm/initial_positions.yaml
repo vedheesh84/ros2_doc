@@ -1,0 +1,27 @@
+#
+# INITIAL POSITIONS CONFIGURATION - Mobile Manipulator
+# =====================================================
+#
+# DESCRIPTION:
+#   Default joint positions for robot startup
+#   Used by hardware bridge and controller spawners
+#
+# POSITIONS (radians):
+#   All joints start at safe "home" position
+#   Arm vertical, gripper half-open
+#
+# USAGE:
+#   Loaded by unified_hardware_bridge.py on startup
+#   Also used by controller spawners for initial state
+#
+
+initial_positions:
+  # ARM JOINTS - Home position (vertical)
+  joint_1: 0.0          # Base rotation: forward
+  joint_2: 0.0          # Shoulder: neutral
+  joint_3: 0.0          # Elbow: straight
+  joint_4: 0.0          # Wrist: neutral
+  gripper_base_joint: 0.0  # Gripper rotation: forward
+
+  # GRIPPER - Half-open for safety
+  left_gear_joint: 0.3927   # ~22.5 degrees (half of max 45 deg)
