@@ -5,9 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
-find_package(ament_cmake REQUIRED)
-# find dependencies
+# Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -15,43 +13,44 @@ find_package(sensor_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
-
+# Install Python scripts (if any exist)
 file(GLOB PYTHON_SCRIPTS "script/*.py")
+if(PYTHON_SCRIPTS)
+  install(
+    PROGRAMS ${PYTHON_SCRIPTS}
+    DESTINATION lib/${PROJECT_NAME}
+  )
+endif()
 
-install(
-  PROGRAMS
-  ${PYTHON_SCRIPTS}
-  DESTINATION lib/${PROJECT_NAME}
-)
-#install launch file
+# Install launch files
 install(
   DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-#install urdf file
+# Install URDF files
 install(
   DIRECTORY urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
+# Install mesh files
 install(
   DIRECTORY meshes
   DESTINATION share/${PROJECT_NAME}
 )
 
+# Install config files (if directory exists)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/config")
+  install(
+    DIRECTORY config
+    DESTINATION share/${PROJECT_NAME}
+  )
+endif()
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()

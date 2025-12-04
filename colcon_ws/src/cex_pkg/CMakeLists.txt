@@ -5,70 +5,59 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# Find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclpy REQUIRED)  # Add rclpy as a dependency
-find_package(rosidl_default_generators REQUIRED)  # for generating messages and services 
+find_package(rclpy REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(action_msgs REQUIRED) #action msg is different from std msg
+find_package(action_msgs REQUIRED)
 
+# Define action files
 set(action_files "action/MoveTurtle.action")
 
-
-#Generate service files from server
+# Generate interfaces from custom message, service, and action definitions
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/NumPair.msg"     #a custom msg type
-  "srv/AddTwoInt.srv"   #server data type
+  "msg/NumPair.msg"
+  "srv/AddTwoInt.srv"
   ${action_files}
-  DEPENDENCIES builtin_interfaces action_msgs
-  DEPENDENCIES std_msgs
+  DEPENDENCIES builtin_interfaces action_msgs std_msgs
 )
 
-
-#install all python scripts inside script
+# Install Python scripts
 file(GLOB PYTHON_SCRIPTS "script/*.py")
-
 install(
-  PROGRAMS
-  ${PYTHON_SCRIPTS}
+  PROGRAMS ${PYTHON_SCRIPTS}
   DESTINATION lib/${PROJECT_NAME}
 )
 
-#Install the server directory
+# Install service definitions
 install(
-  DIRECTORY srv 
+  DIRECTORY srv
   DESTINATION share/${PROJECT_NAME}
 )
 
+# Install action definitions
 install(
-  DIRECTORY action 
+  DIRECTORY action
   DESTINATION share/${PROJECT_NAME}
 )
 
+# Install message definitions
 install(
-  DIRECTORY msg 
+  DIRECTORY msg
   DESTINATION share/${PROJECT_NAME}
 )
 
-#install urdf file
+# Install URDF files
 install(
   DIRECTORY urdf
   DESTINATION share/${PROJECT_NAME}
-
-)
-
-#install urdf file
-install(
-  DIRECTORY urdf
-  DESTINATION share/${PROJECT_NAME}
-
 )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
   set(ament_cmake_cpplint_FOUND TRUE)
-
   ament_lint_auto_find_test_dependencies()
 endif()
 

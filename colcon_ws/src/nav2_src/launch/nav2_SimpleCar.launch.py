@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
+"""
+Navigation2 Simple Car Launch File.
+
+This launch file starts the Navigation2 stack components including
+planner, behavior tree navigator, waypoint follower, and lifecycle manager.
+"""
 
 import os
-
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
@@ -10,28 +15,20 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    # =============================
-    # Path Setup
-    # =============================
+    """Generate launch description for Nav2 simple car navigation."""
+    # Package paths
     bringup_dir = get_package_share_directory('nav2_src')
-    nav2_params = os.path.join(
-        bringup_dir,
-        'config',
-        'nav2_params.yaml'  # you can replace this with your own tuned param file
-    )
+    nav2_params = os.path.join(bringup_dir, 'config', 'nav2_params.yaml')
 
-    # =============================
-    # Launch Configurations
-    # =============================
+    # Default map file path using package share directory
+    rviz_pkg_dir = get_package_share_directory('rviz_tutorial')
+    default_map_file = os.path.join(rviz_pkg_dir, 'maps', 'turtle3_map.save.yaml')
+
+    # Launch configurations
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
-    map_yaml_file = LaunchConfiguration(
-        'map',
-        default=os.path.join('rviz_tutorial', 'maps', 'turtle3_map.save.yaml')
-    )
+    map_yaml_file = LaunchConfiguration('map', default=default_map_file)
 
-    # =============================
-    # Launch Arguments
-    # =============================
+    # Declare launch arguments
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
         default_value='true',
@@ -40,15 +37,11 @@ def generate_launch_description():
 
     declare_map_yaml = DeclareLaunchArgument(
         'map',
-        default_value=map_yaml_file,
+        default_value=default_map_file,
         description='Full path to map yaml file to load'
     )
 
-    # =============================
-    # Nav2 Nodes
-    # =============================
-
-    # Lifecycle manager
+    # Lifecycle manager node
     lifecycle_manager = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
@@ -68,7 +61,7 @@ def generate_launch_description():
         }],
     )
 
-    # Planner
+    # Planner server node
     planner = Node(
         package='nav2_planner',
         executable='planner_server',
@@ -77,7 +70,7 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}, nav2_params],
     )
 
-    # Behavior Tree Navigator
+    # Behavior Tree Navigator node
     bt_navigator = Node(
         package='nav2_bt_navigator',
         executable='bt_navigator',
@@ -86,7 +79,7 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}, nav2_params],
     )
 
-    # Waypoint Follower
+    # Waypoint Follower node
     waypoint_follower = Node(
         package='nav2_waypoint_follower',
         executable='waypoint_follower',
@@ -95,17 +88,14 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}, nav2_params],
     )
 
-    # =============================
-    # Launch Description
-    # =============================
+    # Build launch description
     ld = LaunchDescription()
 
-    # Declare arguments
+    # Add launch arguments
     ld.add_action(declare_use_sim_time)
     ld.add_action(declare_map_yaml)
 
     # Add Nav2 nodes
-
     ld.add_action(planner)
     ld.add_action(bt_navigator)
     ld.add_action(waypoint_follower)
